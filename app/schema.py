@@ -1,6 +1,6 @@
 import graphene
 
-import api.schema as sch
+from api.schema import schema as sch
 
 class Query(sch.Query, graphene.ObjectType):
     # This class will inherit from multiple Queries
