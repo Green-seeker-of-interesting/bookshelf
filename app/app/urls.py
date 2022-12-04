@@ -8,6 +8,6 @@ import web_client.views as views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', views.index, name='index'),
+    path('', views.index, name='index'),
     path('api/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
 ]

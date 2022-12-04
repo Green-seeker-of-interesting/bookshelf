@@ -42,7 +42,7 @@ class Book(models.Model):
     slug = models.SlugField(max_length=250, unique=True, verbose_name="URL")
     description = models.TextField()
 
-    author = models.ManyToManyField(Author)
+    author = models.ManyToManyField(Author, related_name="authors")
     genre = models.ForeignKey(Genre, related_name='books', on_delete=models.SET_NULL, null=True)
     publisher = models.ForeignKey(Publisher, related_name='books', on_delete=models.SET_NULL, null=True)
 

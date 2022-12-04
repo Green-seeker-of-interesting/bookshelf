@@ -1,5 +1,10 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 
+from web_client.models import Book
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    ordering = request.GET.get('ord')
+    books = Book.objects.all().order_by(ordering)
+    return render(request ,"index.html", context={
+        "books" : books,
+    })
