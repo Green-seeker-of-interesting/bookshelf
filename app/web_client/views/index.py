@@ -1,10 +1,7 @@
 from django.shortcuts import render
 
-from web_client.models import Book
+from core.context_factories import ContextFactory, HendlerName
 
 def index(request):
-    ordering = request.GET.get('ord')
-    books = Book.objects.all().order_by(ordering)
-    return render(request ,"index.html", context={
-        "books" : books,
-    })
+    context = ContextFactory().get_context(HendlerName.INDEX, request)
+    return render(request ,"index.html", context=context)

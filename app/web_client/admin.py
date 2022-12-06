@@ -9,11 +9,11 @@ class AuthorRegister(admin.ModelAdmin):
 
 @admin.register(Genre)
 class GenreRegister(admin.ModelAdmin):
-    prepopulated_fields = {"slug": ("title", )}
+    prepopulated_fields = {"slug": ("name", )}
 
 @admin.register(Publisher)
 class PublisherRegister(admin.ModelAdmin):
-    prepopulated_fields = {"slug": ("title", )}
+    prepopulated_fields = {"slug": ("name", )}
 
 @admin.register(Book)
 class BookRegister(admin.ModelAdmin):

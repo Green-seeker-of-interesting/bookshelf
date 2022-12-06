@@ -1,6 +1,8 @@
 
 body{
     background-color: rgb(246, 255, 193);
+    background-size: 100%;
+    min-height: 1000px;
 }
 
 #menu {
