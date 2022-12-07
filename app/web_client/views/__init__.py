@@ -1,2 +1,2 @@
 from .index import *
-from .admin import *
+from .workspace import *

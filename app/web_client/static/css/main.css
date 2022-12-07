@@ -9,3 +9,8 @@ body{
     background-color: rgb(246, 255, 193);
     text-align: center;
 }
+
+input {
+    width: 300px;
+    font-size: 14px;
+}

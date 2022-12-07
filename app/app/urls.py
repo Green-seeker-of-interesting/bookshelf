@@ -11,5 +11,9 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('api/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
     path('workspace/', views.admin_panel, name='workspace'),
-    path('workspace/create_author', views.admin_panel, name='create_author'),
+
+    path('workspace/create_author', views.author_form, name='create_author'),
+    path('workspace/author_list', views.author_list_to_edit, name='author_list'),
+    path('author_edit/<slug:slug>/', views.author_edit, name='author_edit'),
+    path('author_delite/<slug:slug>/', views.author_delite, name='author_delite'),
 ]

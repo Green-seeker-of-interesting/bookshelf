@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div  class="notification is-link is-light" id="contetnt" >
+    <p class="title is-4" >{{title}}</p>
+
+    <table class="table">
+        {% for item in models %}
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{ item.description }}</td>
+                <td> <a href="/{{url_interspersed}}_edit/{{item.slug}}"> Редактировать </a></td>
+                <td> <a href="/{{url_interspersed}}_delite/{{item.slug}}"> Удалить </a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
