@@ -1,8 +1,11 @@
+from datetime import datetime
+
 from django.db import models
 
 
 class BaseModel(models.Model):
-    name = models.CharField(max_length=250, unique=True, verbose_name="имя/название")
+    name = models.CharField(max_length=250, unique=True,
+                            verbose_name="имя/название")
     slug = models.SlugField(max_length=250, unique=True, verbose_name="URL")
     description = models.TextField()
 
@@ -33,13 +36,14 @@ class Book(models.Model):
     slug = models.SlugField(max_length=250, unique=True, verbose_name="URL")
     description = models.TextField()
 
-    author = models.ManyToManyField(Author, related_name="authors")
+    author = models.ManyToManyField(
+        Author, related_name="authors")
     genre = models.ForeignKey(
-        Genre, related_name='books', on_delete=models.SET_NULL, null=True)
+        Genre, related_name='books', on_delete=models.CASCADE, null=True)
     publisher = models.ForeignKey(
-        Publisher, related_name='books', on_delete=models.SET_NULL, null=True)
+        Publisher, related_name='books', on_delete=models.CASCADE, null=True)
 
-    publication_date = models.DateField()
+    publication_date = models.DateField(default=datetime.now)
 
     class Meta:
         ordering = ('title',)

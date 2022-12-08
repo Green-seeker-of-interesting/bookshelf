@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 *.drawio.bkp
 *.dtmp
+app/temporary_files

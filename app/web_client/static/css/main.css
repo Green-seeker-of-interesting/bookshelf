@@ -14,3 +14,11 @@ input {
     width: 300px;
     font-size: 14px;
 }
+
+select{
+    width: 500px;
+}
+
+textarea {
+    width: 800px;
+}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+    <div class="message is-link">
+        <div class="message-header">
+            <strong >Книга</strong>
+        </div>
+        <div class="message-body">
+            <form action="" method="post">
+                {% csrf_token %}
+                
+                <div class="control">
+                    <strong> Название </strong><br>
+                    {{ form.title }} <br>
+                    <strong> Описание </strong><br>
+                    {{ form.description }}<br>
+                    <div class="columns">
+                        <div class="column">
+
+                            <strong> Жанр </strong><br>
+                            <div class="select is-link">
+                                {{ form.genre }}
+                            </div><br>
+
+                            <strong> Издательство </strong><br>
+                            <div class="select is-link">
+                                {{ form.publisher }}
+                            </div>
+
+                        </div>
+                        <div class="column">
+                            <strong> Авторы </strong><br>
+                            <div class="select is-multiple">
+                                {{ form.author }}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <input type="submit" value="Сохранить" />
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

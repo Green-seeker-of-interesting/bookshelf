@@ -7,7 +7,7 @@
     <br>
     {% for book in books %}
     <div class="notification is-link is-light">
-        <h1 class="title is-2"><a href="/books/{{book.slug}}">{{book.title}}</a></h1>
+        <h1 class="title is-2"><a href="#">{{book.title}}</a></h1>
         <strong>Авторы:</strong>
             <p> 
                 <il>
@@ -19,9 +19,9 @@
         <strong>Описание:</strong>
             <p> {{book.description|truncatewords:30}}</p>
         <strong>Жанр:</strong>
-            <p> {{book.genre.title}}</p>
+            <p> {{book.genre.name}}</p>
         <strong> Издатель</strong>
-            <p> {{book.publisher.title}}</p>
+            <p> {{book.publisher.name}}</p>
     </div>
     {% endfor %}
 </div>

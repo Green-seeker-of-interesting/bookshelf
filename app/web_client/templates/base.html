@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css">
 
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/main.css' %}?v=1.06">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}?v=1.08">
 </head>
 <body>
     <div class="columns">
@@ -21,23 +21,22 @@
                 <div class="message-body">
                     <a href="{% url 'index' %}">Главная</a> <br>
                     <a href="{% url 'workspace' %}">Админ панель</a> <br>
+                    <a href="{% url 'api' %}">API</a> <br>
                 </div>
             </div>
 
-
+            {% if sort_options %}
             <div class="message is-link">
                 <div class="message-header">
                     <strong >Сортировка</strong>
                 </div>
-                <div class="message-body">
-                    <a href="?ord=title">Сортировка по названию</a> <br>
-                    <a href="?ord=description">Сортировка по описанию</a> <br>
-                    <a href="?ord=genre">Сортировка по жанру</a> <br>
-                    <a href="?ord=publisher">Сортировка по издательству</a> <br>
-                    <a href="?ord=publication_date">Сортировка по дате</a> <br>
-
+                <div class="message-body">  
+                    {% for item in sort_options %}
+                        <a href="{{ item.href }}">{{ item.title }}</a> <br>
+                    {% endfor %}
                 </div>
             </div>
+            {% endif %}
         </div>
 
         

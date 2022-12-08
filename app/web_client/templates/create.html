@@ -6,14 +6,14 @@
 
     <div class="message is-link">
         <div class="message-header">
-            <strong >Автор</strong>
+            <strong >{{ title }}</strong>
         </div>
         <div class="message-body">
             <form action="" method="post">
                 {% csrf_token %}
                 
                 <div class="control">
-                    <strong> ФИО </strong><br>
+                    <strong> {{ name }} </strong><br>
                     {{ form.name }}
                     <br>
                     

@@ -12,9 +12,9 @@
         </div>
         <div class="message-body">
             <p>
-                <a href="#">Создать</a> <br>
-                <a href="#">Редактировать</a> <br>
-                <a href="#">Скачать список</a> <br>
+                <a href="{% url 'create_book' %}">Создать</a> <br>
+                <a href="{% url 'book_list' %}">Редактировать</a> <br>
+                <a href="{% url 'book_files' %}">Скачать список</a> <br>
             </p>
         </div>
     </div>
@@ -24,9 +24,9 @@
             <strong >Жанры</strong>
         </div>
         <div class="message-body">
-            <a href="#">Создать</a> <br>
-            <a href="#">Редактировать</a> <br>
-            <a href="#">Скачать список</a> <br>
+            <a href="{% url 'create_genre' %}">Создать</a> <br>
+            <a href="{% url 'genre_list' %}">Редактировать</a> <br>
+            <a href="{% url 'genre_files' %}">Скачать список</a> <br>
         </div>
     </div>
 
@@ -37,7 +37,7 @@
         <div class="message-body">
             <a href="{% url 'create_author' %}">Создать</a> <br>
             <a href="{% url 'author_list' %}">Редактировать</a> <br>
-            <a href="#">Скачать список</a> <br>
+            <a href="{% url 'author_files' %}">Скачать список</a> <br>
         </div>
     </div>
 
@@ -46,9 +46,9 @@
             <strong >Издательства</strong>
         </div>
         <div class="message-body">
-            <a href="#">Создать</a> <br>
-            <a href="#">Редактировать</a> <br>
-            <a href="#">Скачать список</a> <br>
+            <a href="{% url 'create_publisher' %}">Создать</a> <br>
+            <a href="{% url 'publisher_list'  %}">Редактировать</a> <br>
+            <a href="{% url 'publisher_files' %}">Скачать список</a> <br>
         </div>
     </div>
 
