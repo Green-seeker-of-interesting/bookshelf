@@ -7,21 +7,27 @@
     <br>
     {% for book in books %}
     <div class="notification is-link is-light">
-        <h1 class="title is-2"><a href="#">{{book.title}}</a></h1>
-        <strong>Авторы:</strong>
-            <p> 
-                <il>
-                {% for author in book.author.all %}
-                    <li>{{author.name}}</li>
-                {% endfor %}
-                </il>
-            </p>
-        <strong>Описание:</strong>
-            <p> {{book.description|truncatewords:30}}</p>
-        <strong>Жанр:</strong>
-            <p> {{book.genre.name}}</p>
-        <strong> Издатель</strong>
-            <p> {{book.publisher.name}}</p>
+        <h1 class="title is-4"><a href="#">{{book.title}}</a></h1>
+        <div class="columns">
+            <div class="column">
+                <strong>Авторы:</strong>
+                <p> 
+                    <il>
+                    {% for author in book.author.all %}
+                        <li>{{author.name}}</li>
+                    {% endfor %}
+                    </il>
+                </p>
+            <strong>Жанр:</strong>
+                <p> {{book.genre.name}}</p>
+            <strong> Издатель</strong>
+                <p> {{book.publisher.name}}</p>
+            </div>
+            <div class="column">
+                <strong>Описание:</strong>
+                <p> {{book.description|truncatewords:30}}</p>
+            </div>
+        </div>
     </div>
     {% endfor %}
 </div>

@@ -2,7 +2,7 @@ from enum import IntEnum
 
 
 from core.receive_data import ReceiverData, ModelName
-from web_client.forms import AuthorForm, GenreForm, PublisherForm, BookForm
+from web_client.forms import AuthorForm, GenreForm, PublisherForm, BookForm, FilterForms
 
 
 class HendlerName(IntEnum):
@@ -24,6 +24,21 @@ class HendlerName(IntEnum):
     BOOK_LIST_TO_EDIT = 12
     BOOK_EDIT = 13
 
+    FILTER = 14
+
+
+SORT_OPTION = [
+        {"href": '?ord=title',
+        "title": "Сортировка по названию"},
+        {"href": '?ord=description',
+        "title": "Сортировка по описанию"},
+        {"href": '?ord=genre',
+        "title": "Сортировка по жанру"},
+        {"href": '?ord=publisher',
+        "title": "Сортировка по издательству"},
+        {"href": '?ord=publication_date',
+        "title": "Сортировка по дате"},
+    ]
 
 class ContextFactory:
 
@@ -54,23 +69,16 @@ class ContextFactory:
             return self.book_list_to_edit(request)
         elif hendler_name == HendlerName.BOOK_EDIT:
             return self.book_form_context(request)
+        elif hendler_name == HendlerName.FILTER:
+            return self.filter_context(request)
 
     def index_context(self, request) -> dict:
-        sort_options = [
-            {"href": '?ord=title',
-             "title": "Сортировка по названию"},
-            {"href": '?ord=description',
-             "title": "Сортировка по описанию"},
-            {"href": '?ord=genre',
-             "title": "Сортировка по жанру"},
-            {"href": '?ord=publisher',
-             "title": "Сортировка по издательству"},
-            {"href": '?ord=publication_date',
-             "title": "Сортировка по дате"},
-        ]
+
         return {
             "books": ReceiverData(ModelName.BOOK).get_with_terms(request),
-            "sort_options": sort_options,
+            "sort_options": SORT_OPTION,
+            "form" : FilterForms(),
+            "filter" : True,
         }
 
     def author_form_context(self, request) -> dict:
@@ -157,4 +165,12 @@ class ContextFactory:
             "models": models,
             "url_interspersed": url_interspersed,
             "title": title,
+        }
+
+
+    def filter_context(self, request) -> dict:
+        return {
+            "books": ReceiverData(ModelName.BOOK).get_with_filters(request),
+            "form" : FilterForms(),
+            "filter" : True,
         }

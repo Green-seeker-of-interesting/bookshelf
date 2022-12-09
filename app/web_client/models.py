@@ -29,7 +29,6 @@ class Publisher(BaseModel):
     pass
 
 
-# TODO: этот пункт надо тоже унаследовать
 class Book(models.Model):
     title = models.CharField(
         max_length=250, unique=True, verbose_name="Название")
@@ -37,7 +36,7 @@ class Book(models.Model):
     description = models.TextField()
 
     author = models.ManyToManyField(
-        Author, related_name="authors")
+        Author, related_name="books")
     genre = models.ForeignKey(
         Genre, related_name='books', on_delete=models.CASCADE, null=True)
     publisher = models.ForeignKey(

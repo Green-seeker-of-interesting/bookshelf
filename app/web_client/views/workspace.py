@@ -25,14 +25,14 @@ def author_list_to_edit(request):
 def author_edit(request, slug=None):
     request.slug = slug
     if request.method == "POST":
-        FormHandler().update_model(ModelName.AUTHOR, request.POST, slug)
+        FormHandler().update_model_by_slug(ModelName.AUTHOR, request.POST, slug)
         return HttpResponseRedirect('/workspace/author_list')
     context = ContextFactory().get_context(HendlerName.AUTHOR_EDIT, request)
     return render(request, "create.html", context=context)
 
 
 def author_delite(request, slug=None):
-    ReceiverData(ModelName.AUTHOR).delete_model(slug=slug)
+    ReceiverData(ModelName.AUTHOR).delete_model_by_slug(slug=slug)
     return HttpResponseRedirect('/workspace/author_list')
 
 
@@ -51,14 +51,14 @@ def genre_list_to_edit(request):
 def genre_edit(request, slug=None):
     request.slug = slug
     if request.method == "POST":
-        FormHandler().update_model(ModelName.GENRE, request.POST, slug)
+        FormHandler().update_model_by_slug(ModelName.GENRE, request.POST, slug)
         return HttpResponseRedirect('/workspace/genre_list')
     context = ContextFactory().get_context(HendlerName.GENRE_EDIT, request)
     return render(request, "create.html", context=context)
 
 
 def genre_delite(request, slug=None):
-    ReceiverData(ModelName.GENRE).delete_model(slug=slug)
+    ReceiverData(ModelName.GENRE).delete_model_by_slug(slug=slug)
     return HttpResponseRedirect('/workspace/genre_list')
 
 
@@ -78,14 +78,14 @@ def publisher_list_to_edit(request):
 def publisher_edit(request, slug=None):
     request.slug = slug
     if request.method == "POST":
-        FormHandler().update_model(ModelName.PUBLISHER, request.POST, slug)
+        FormHandler().update_model_by_slug(ModelName.PUBLISHER, request.POST, slug)
         return HttpResponseRedirect('/workspace/publisher_list')
     context = ContextFactory().get_context(HendlerName.PUBLISHER_EDIT, request)
     return render(request, "create.html", context=context)
 
 
 def publisher_delite(request, slug=None):
-    ReceiverData(ModelName.PUBLISHER).delete_model(slug=slug)
+    ReceiverData(ModelName.PUBLISHER).delete_model_by_slug(slug=slug)
     return HttpResponseRedirect('/workspace/publisher_list')
 
 
@@ -104,11 +104,11 @@ def book_list_to_edit(request):
 def book_edit(request, slug=None):
     request.slug = slug
     if request.method == "POST":
-        FormHandler().update_model(ModelName.BOOK, request.POST, slug)
+        FormHandler().update_model_by_slug(ModelName.BOOK, request.POST, slug)
         return HttpResponseRedirect('/workspace/book_list')
     context = ContextFactory().get_context(HendlerName.BOOK_EDIT, request)
     return render(request, "book_form.html", context=context)
 
 def book_delite(request, slug=None):
-    ReceiverData(ModelName.BOOK).delete_model(slug=slug)
+    ReceiverData(ModelName.BOOK).delete_model_by_slug(slug=slug)
     return HttpResponseRedirect('/workspace/book_list')

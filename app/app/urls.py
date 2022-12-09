@@ -12,6 +12,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('api/', csrf_exempt(GraphQLView.as_view(graphiql=True)), name='api'),
     path('workspace/', views.admin_panel, name='workspace'),
+    path('filter/', views.filter, name='filter'),
 
     path('workspace/create_author', views.author_form, name='create_author'),
     path('workspace/author_list', views.author_list_to_edit, name='author_list'),

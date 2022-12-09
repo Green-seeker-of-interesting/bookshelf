@@ -17,11 +17,13 @@ class FormHandler:
             return self._add_book(cleaned_data)
 
     def _add_author(self, cleaned_data: QueryDict):
+        print(cleaned_data)
         author = Author(
             name=cleaned_data['name'],
             description=cleaned_data['description'],
         )
         ReceiverData(model_name=ModelName.AUTHOR).add_model(author)
+        return author
 
     def _add_genre(self, cleaned_data: QueryDict):
         model = Genre(
@@ -29,6 +31,7 @@ class FormHandler:
             description=cleaned_data['description'],
         )
         ReceiverData(model_name=ModelName.GENRE).add_model(model=model)
+        return model
 
     def _add_publisher(self, cleaned_data: QueryDict):
         model = Publisher(
@@ -36,6 +39,7 @@ class FormHandler:
             description=cleaned_data['description'],
         )
         ReceiverData(model_name=ModelName.PUBLISHER).add_model(model=model)
+        return model
 
     def _add_book(self, cleaned_data: QueryDict):
         model = Book(
@@ -54,6 +58,6 @@ class FormHandler:
 
         ReceiverData(model_name=ModelName.BOOK).add_model(model=model)
 
-    def update_model(self, model_name: ModelName, cleaned_data: QueryDict, slug: str):
-        return ReceiverData(model_name=model_name).update_model(
+    def update_model_by_slug(self, model_name: ModelName, cleaned_data: QueryDict, slug: str):
+        return ReceiverData(model_name=model_name).update_model_by_slug(
             cleaned_data=cleaned_data, slug=slug)

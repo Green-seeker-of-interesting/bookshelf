@@ -1,10 +1,10 @@
 import graphene
-from slugify import slugify
 
-from api.schema.inputs import AuthorInput, GenreInput
-from api.schema.types import AuthorType, GenreType
+from api.schema.inputs import AuthorInput, GenreInput, PublishenInput, BookInput
+from api.schema.types import AuthorType, GenreType, PublisherType, BookType
 
-from web_client.models import Author, Genre
+from core.receive_data import ModelName, ReceiverData
+from core.form_handler import FormHandler
 
 
 class CreateAuthor(graphene.Mutation):
@@ -17,10 +17,8 @@ class CreateAuthor(graphene.Mutation):
     @staticmethod
     def mutate(root, info, input=None):
         ok = True
-        author_instance = Author(
-            name=input.name, description=input.description, slug=slugify(input.name))
-        author_instance.save()
-        return CreateAuthor(ok=ok, author=author_instance)
+        model = FormHandler().add_model_from_form(ModelName.AUTHOR, input)
+        return CreateAuthor(ok=ok, author=model)
 
 
 class UpdateAuthor(graphene.Mutation):
@@ -33,15 +31,20 @@ class UpdateAuthor(graphene.Mutation):
 
     @staticmethod
     def mutate(root, info, id, input=None):
-        ok = False
-        author_instance = Author.objects.get(pk=id)
-        if author_instance:
-            ok = True
-            author_instance.name = input.name
-            author_instance.description = input.description
-            author_instance.save()
-            return UpdateAuthor(ok=ok, author=author_instance)
-        return UpdateAuthor(ok=ok, author=None)
+        model, ok = ReceiverData(
+            ModelName.AUTHOR).update_model_by_id(input, id)
+        return UpdateAuthor(ok=ok, author=model)
+
+
+class DeleteAuthor(graphene.Mutation):
+    class Arguments:
+        id = graphene.Int(required=True)
+    ok = graphene.Boolean()
+
+    @staticmethod
+    def mutate(root, info, id):
+        ok = ReceiverData(ModelName.AUTHOR).delete_model_by_pk(id)
+        return DeleteAuthor(ok=ok)
 
 
 class CreateGenre(graphene.Mutation):
@@ -49,15 +52,13 @@ class CreateGenre(graphene.Mutation):
         input = GenreInput(required=True)
 
     ok = graphene.Boolean()
-    author = graphene.Field(GenreType)
+    genre = graphene.Field(GenreType)
 
     @staticmethod
     def mutate(root, info, input=None):
         ok = True
-        instance = Genre(
-            title=input.title, description=input.description, slug=slugify(input.title))
-        instance.save()
-        return CreateGenre(ok=ok, author=instance)
+        model = FormHandler().add_model_from_form(ModelName.GENRE, input)
+        return CreateGenre(ok=ok, genre=model)
 
 
 class UpdateGenre(graphene.Mutation):
@@ -70,20 +71,87 @@ class UpdateGenre(graphene.Mutation):
 
     @staticmethod
     def mutate(root, info, id, input=None):
-        ok = False
-        instance = Genre.objects.get(pk=id)
-        if instance:
-            ok = True
-            instance.title = input.title
-            instance.description = input.description
-            instance.save()
-            return UpdateGenre(ok=ok, genre=instance)
-        return UpdateGenre(ok=ok, genre=None)
+        model, ok = ReceiverData(ModelName.GENRE).update_model_by_id(input, id)
+        return UpdateGenre(ok=ok, genre=model)
+
+
+class DeleteGenre(graphene.Mutation):
+    class Arguments:
+        id = graphene.Int(required=True)
+    ok = graphene.Boolean()
+
+    @staticmethod
+    def mutate(root, info, id):
+        ok = ReceiverData(ModelName.GENRE).delete_model_by_pk(id)
+        return DeleteGenre(ok=ok)
+
+
+class CreatePublisher(graphene.Mutation):
+    class Arguments:
+        input = PublishenInput(required=True)
+
+    ok = graphene.Boolean()
+    publisher = graphene.Field(PublisherType)
+
+    @staticmethod
+    def mutate(root, info, input=None):
+        ok = True
+        model = FormHandler().add_model_from_form(ModelName.PUBLISHER, input)
+        return CreateGenre(ok=ok, publisher=model)
+
+
+class UpdatePublisher(graphene.Mutation):
+    class Arguments:
+        id = graphene.Int(required=True)
+        input = PublishenInput(required=True)
+
+    ok = graphene.Boolean()
+    publisher = graphene.Field(PublisherType)
+
+    @staticmethod
+    def mutate(root, info, id, input=None):
+        model, ok = ReceiverData(
+            ModelName.PUBLISHER).update_model_by_id(input, id)
+        return UpdatePublisher(ok=ok, publisher=model)
+
+
+class DeletePublisher(graphene.Mutation):
+    class Arguments:
+        id = graphene.Int(required=True)
+    ok = graphene.Boolean()
+
+    @staticmethod
+    def mutate(root, info, id):
+        ok = ReceiverData(ModelName.PUBLISHER).delete_model_by_pk(id)
+        return DeletePublisher(ok=ok)
+
+
+class CreateBook(graphene.Mutation):
+    class Arguments:
+        input = BookInput(required=True)
+
+    ok = graphene.Boolean()
+    book = graphene.Field(BookType)
+
+    @staticmethod
+    def mutate(root, info, input=None):
+        ok = True
+        print(input['author'][0].id)
+        # model = FormHandler().add_model_from_form(ModelName.PUBLISHER, input)
+        # return CreateGenre(ok=ok, publisher=model)
 
 
 class Mutation(graphene.ObjectType):
     create_author = CreateAuthor.Field()
     update_author = UpdateAuthor.Field()
+    delete_author = DeleteAuthor.Field()
 
     create_genre = CreateGenre.Field()
     update_genre = UpdateGenre.Field()
+    delete_genre = DeleteGenre.Field()
+
+    create_publisher = CreatePublisher.Field()
+    update_publisher = UpdatePublisher.Field()
+    delete_publisher = DeletePublisher.Field()
+
+    create_book = CreateBook.Field()

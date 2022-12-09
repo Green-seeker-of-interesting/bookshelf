@@ -1,7 +1,7 @@
 import graphene
 from graphene_django.types import ObjectType
 
-from web_client.models import Author, Book, Genre, Publisher
+from core.receive_data import ReceiverData, ModelName
 
 from api.schema.types import AuthorType, BookType, GenreType, PublisherType
 
@@ -22,35 +22,35 @@ class Query(ObjectType):
     def resolve_author(self, info, **kwargs):
         id = kwargs.get('id')
         if id is not None:
-            return Author.objects.get(pk=id)
+            return ReceiverData(ModelName.AUTHOR).get_by_pk(id)
         return None
 
     def resolve_authors(self, info, **kwargs):
-        return Author.objects.all()
+        return ReceiverData(ModelName.AUTHOR).get_all()
 
     def resolve_genre(self, info, **kwargs):
         id = kwargs.get('id')
         if id is not None:
-            return Genre.objects.get(pk=id)
+            return ReceiverData(ModelName.GENRE).get_by_pk(id)
         return None
 
     def resolve_genres(self, info, **kwargs):
-        return Genre.objects.all()
+        return ReceiverData(ModelName.GENRE).get_all()
 
     def resolve_publisher(self, info, **kwargs):
         id = kwargs.get('id')
         if id is not None:
-            return Publisher.objects.get(pk=id)
+            return ReceiverData(ModelName.PUBLISHER).get_by_pk(id)
         return None
 
     def resolve_publishers(self, info, **kwargs):
-        return Publisher.objects.all()
+        return ReceiverData(ModelName.PUBLISHER).get_all()
 
     def resolve_book(self, info, **kwargs):
         id = kwargs.get('id')
         if id is not None:
-            return Book.objects.get(pk=id)
+            return ReceiverData(ModelName.BOOK).get_by_pk(id)
         return None
 
     def resolve_books(self, info, **kwargs):
-        return Book.objects.all()
+        return ReceiverData(ModelName.BOOK).get_all()
