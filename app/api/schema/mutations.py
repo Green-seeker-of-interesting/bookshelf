@@ -5,6 +5,7 @@ from api.schema.types import AuthorType, GenreType, PublisherType, BookType
 
 from core.receive_data import ModelName, ReceiverData
 from core.form_handler import FormHandler
+from core.api_hendler import ApiHendler
 
 
 class CreateAuthor(graphene.Mutation):
@@ -135,11 +136,33 @@ class CreateBook(graphene.Mutation):
 
     @staticmethod
     def mutate(root, info, input=None):
-        ok = True
-        print(input['author'][0].id)
-        # model = FormHandler().add_model_from_form(ModelName.PUBLISHER, input)
-        # return CreateGenre(ok=ok, publisher=model)
+        model, ok = ApiHendler().add_model(ModelName.BOOK, input)        
+        return CreateBook(ok=ok, book=model)
 
+
+class UpdateBook(graphene.Mutation):
+    class Arguments:
+        id = graphene.Int(required=True)
+        input = BookInput(required=True)
+
+    ok = graphene.Boolean()
+    book = graphene.Field(BookType)
+
+    @staticmethod
+    def mutate(root, info, id, input=None):
+        model, ok = ApiHendler().update_model(ModelName.BOOK, id, input)
+        return UpdateBook(ok=ok, book=model)
+
+
+class DeleteBook(graphene.Mutation):
+    class Arguments:
+        id = graphene.Int(required=True)
+    ok = graphene.Boolean()
+
+    @staticmethod
+    def mutate(root, info, id):
+        ok = ReceiverData(ModelName.BOOK).delete_model_by_pk(id)
+        return DeleteBook(ok=ok)
 
 class Mutation(graphene.ObjectType):
     create_author = CreateAuthor.Field()
@@ -155,3 +178,5 @@ class Mutation(graphene.ObjectType):
     delete_publisher = DeletePublisher.Field()
 
     create_book = CreateBook.Field()
+    update_book = UpdateBook.Field()
+    delete_bool = DeleteBook.Field()

@@ -57,6 +57,7 @@ class FormHandler:
                 ModelName.AUTHOR).get_by_pk(author_pk))
 
         ReceiverData(model_name=ModelName.BOOK).add_model(model=model)
+        return model
 
     def update_model_by_slug(self, model_name: ModelName, cleaned_data: QueryDict, slug: str):
         return ReceiverData(model_name=model_name).update_model_by_slug(

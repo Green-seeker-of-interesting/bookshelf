@@ -25,19 +25,6 @@
                 </div>
             </div>
 
-            {% if sort_options %}
-            <div class="message is-link">
-                <div class="message-header">
-                    <strong >Сортировка</strong>
-                </div>
-                <div class="message-body">  
-                    {% for item in sort_options %}
-                        <a href="{{ item.href }}">{{ item.title }}</a> <br>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
-        
 
         {% if filter %}
             <div class="message is-link">
@@ -69,6 +56,20 @@
                 </div>
             </div>
         {% endif %}
+
+        {% if sort_options %}
+        <div class="message is-link">
+            <div class="message-header">
+                <strong >Сортировка</strong>
+            </div>
+            <div class="message-body">  
+                {% for item in sort_options %}
+                    <a href="{{ item.href }}">{{ item.title }}</a> <br>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
     </div>
 
         
